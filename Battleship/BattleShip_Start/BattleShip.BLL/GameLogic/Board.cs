@@ -8,8 +8,9 @@ using BattleShip.BLL.Ships;
 namespace BattleShip.BLL.GameLogic
 {
     public class Board
-    {
+    {//Dictionary is holding the coordinates of the previous shots (ShotsHistory)
         public Dictionary<Coordinate, ShotHistory> ShotHistory;
+
         private Ship[] _ships;
         private int _currentShipIndex;
 
