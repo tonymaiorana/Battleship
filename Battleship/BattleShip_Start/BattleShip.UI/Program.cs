@@ -13,8 +13,10 @@ namespace BattleShip.UI
     {
         static void Main(string[] args)
         {
+            
             Player p1 = new Player();
             Player p2 = new Player();
+            WorkFlow game = new WorkFlow();
 
             bool validInput = true;
             string shipPlacementLocation;
@@ -34,9 +36,16 @@ namespace BattleShip.UI
 
             Console.Write("{0}, enter the location of your Destroyer: ",p1.playerName);
             shipPlacementLocation=Console.ReadLine();
-            
-            workFlow
-           
+
+            int xInt = game.coordinateConverter(shipPlacementLocation);
+            int yInt;
+            string yString = shipPlacementLocation.Substring(1);
+
+            bool yValid=int.TryParse(yString, out yInt);
+
+
+            Console.WriteLine(xInt);
+            Console.ReadLine();
 
         }
     }

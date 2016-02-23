@@ -7,7 +7,7 @@ using BattleShip.BLL.Requests;
 
 namespace BattleShip.UI
 {
-    public class workFlow
+    public class WorkFlow
     {
         public void pickASpot()
         {
@@ -22,9 +22,11 @@ namespace BattleShip.UI
             int ascii = xCoordinateChar;
             ascii -= 64;
             return ascii;
+        }
 
-
+        public bool spotValidation(int xCord, int yCord)
+        {
+            return true;
         }
     }
 }
-
