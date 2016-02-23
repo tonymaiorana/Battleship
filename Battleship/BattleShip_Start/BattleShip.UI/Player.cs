@@ -4,12 +4,13 @@ using System.Linq;
 using System.Security.Cryptography;
 using System.Text;
 using System.Threading.Tasks;
+using BattleShip.BLL.GameLogic;
 
 namespace BattleShip.UI
 {
     public class Player
     {
         public string playerName;
-
+        public Board playerBoard;
     }
 }
