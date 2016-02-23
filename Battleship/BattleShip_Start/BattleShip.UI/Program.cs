@@ -34,11 +34,9 @@ namespace BattleShip.UI
 
             Console.Write("{0}, enter the location of your Destroyer: ",p1.playerName);
             shipPlacementLocation=Console.ReadLine();
-            p1.playerBoard=new Board();
-            char xCoordinateChar = shipPlacementLocation[0];
-            Console.WriteLine(xCoordinateChar);
-            //Console.WriteLine(p1.playerName);
-            Console.ReadLine();
+            
+            workFlow
+           
 
         }
     }
