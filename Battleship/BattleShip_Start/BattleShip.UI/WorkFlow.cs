@@ -24,6 +24,14 @@ namespace BattleShip.UI
             return ascii;
         }
 
+        public bool nonsenseCheck(string shipPlacementLocation)
+        {
+            if (
+            {
+
+            }
+        }
+
         public bool spotValidation(int xCord, int yCord)
         {
             return true;

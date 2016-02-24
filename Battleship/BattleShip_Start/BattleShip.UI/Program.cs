@@ -36,7 +36,7 @@ namespace BattleShip.UI
 
             Console.Write("{0}, enter the location of your Destroyer: ",p1.playerName);
             shipPlacementLocation=Console.ReadLine();
-
+            
             int xInt = game.coordinateConverter(shipPlacementLocation);
             int yInt;
             string yString = shipPlacementLocation.Substring(1);
