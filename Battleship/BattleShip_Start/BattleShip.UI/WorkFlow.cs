@@ -52,7 +52,7 @@ namespace BattleShip.UI
             return new Coordinate(11,11);
         }
 
-        public int convertX(string playerInput)
+        public int convertX(string playerInput)//Work with get coord
         {
             char xCoordinateChar = playerInput[0];
             int ascii = xCoordinateChar;
@@ -60,7 +60,7 @@ namespace BattleShip.UI
             return ascii;
         }
 
-        public bool coordinateCheck(int xInt, bool yParse)
+        public bool coordinateCheck(int xInt, bool yParse)//Work With get coord
         {
             if ((xInt < 0 || xInt > 10) || !yParse) //y might need to be changed
             {
@@ -114,6 +114,30 @@ namespace BattleShip.UI
                 placeShip(user);
             }*/
 
+        }
+
+        public bool playerTurn(Player shooter, Player defender)
+        {
+            Console.WriteLine("{0}, get ready to shoot!", shooter.playerName);
+            Coordinate c = GetCoordinate();
+            var result=defender.playerBoard.FireShot(c);
+            if (result.ShotStatus == ShotStatus.Duplicate || result.ShotStatus == ShotStatus.Invalid)
+            {
+                Console.WriteLine("Coordinates aren't on board or you already fired here!");
+            }
+            else if (result.ShotStatus == ShotStatus.Miss)
+            {
+                Console.WriteLine("You missed");
+            }
+            else if (result.ShotStatus == ShotStatus.Hit)
+            {
+                Console.WriteLine("You hit");
+            }
+            else if (result.ShotStatus == ShotStatus.HitAndSunk)
+            {
+                Console.WriteLine("Sunk");
+            }
+            return false;
         }
 
         /*public int coordinateConverter(string location)

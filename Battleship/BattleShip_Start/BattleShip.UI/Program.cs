@@ -23,10 +23,10 @@ namespace BattleShip.UI
             display.welcomeScreen();
             game.PopulatePlayer(p1, 1);
             game.PopulatePlayer(p2, 2);
-            game.placeShips(p1);
-            //Coordinate c1 = game.GetCoordinate();
-            //Console.WriteLine("{0},{1}",c1.XCoordinate,c1.YCoordinate);
-
+            //game.placeShips(p1);
+            game.placeShips(p2);
+            display.displayBoard(p1.playerBoard);
+            game.playerTurn(p1, p2);
             Console.ReadLine();
 
         }
