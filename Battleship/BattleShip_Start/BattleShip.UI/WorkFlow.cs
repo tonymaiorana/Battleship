@@ -4,6 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using BattleShip.BLL.Requests;
+using BattleShip.BLL.Responses;
 using BattleShip.BLL.Ships;
 
 namespace BattleShip.UI
@@ -13,7 +14,7 @@ namespace BattleShip.UI
         public Player PopulatePlayer(Player p, int i)
         {
             bool validInput = false;
-            string nameEntry = i.ToString();
+            string nameEntry;
             do
             {
                 Console.Write("Player {0}, Please Enter Your Name: ",i);
@@ -61,7 +62,7 @@ namespace BattleShip.UI
 
         public bool coordinateCheck(int xInt, bool yParse)
         {
-            if ((xInt < 0 || xInt > 10) || !yParse)
+            if ((xInt < 0 || xInt > 10) || !yParse) //y might need to be changed
             {
                 return false;
             }
@@ -74,25 +75,46 @@ namespace BattleShip.UI
             string directionString = Console.ReadLine();
             if (directionString == ShipDirection.Down.ToString())
             {
-                Console.WriteLine("True");
                 return ShipDirection.Down;
             }
                 
             return ShipDirection.Up;
         }
 
-        public void placeShip(Player user)
+        public void placeShips(Player user)
         {
-            PlaceShipRequest playeRequest = new PlaceShipRequest();
-            PlaceShipRequest request = new PlaceShipRequest()
+            foreach(ShipType s in Enum.GetValues(typeof(ShipType)))
             {
-                Coordinate = GetCoordinate(),
-                Direction = GetShipDirection(),
-                ShipType = ShipType.Carrier
-            };
-            user.playerBoard.PlaceShip(request);
+                Console.WriteLine("{0}, pick where you want to place your {1}?", user.playerName, s);
+                PlaceShipRequest request = new PlaceShipRequest
+                {
+                    Coordinate = GetCoordinate(),
+                    Direction = GetShipDirection(),
+                    ShipType = s
+                };
+                coordinateShipSpotChecker(request, user);
+                //Console.WriteLine("{0},{1}", request.Coordinate.XCoordinate, request.Coordinate.YCoordinate);
+                user.playerBoard.PlaceShip(request);
+                //Console.WriteLine(user.playerBoard.PlaceShip(request));
+            }
         }
 
+        public void coordinateShipSpotChecker(PlaceShipRequest request, Player user)
+        {
+            if (user.playerBoard.PlaceShip(request) == ShipPlacement.Overlap)
+            {
+                Console.WriteLine("{0}, You've overlapped your ships, Please start over.", user.playerName);
+                placeShips(user);
+            }
+
+           /****** MIGHT NOT NEED THIS***** COORDINATE CHECK 
+           else if (user.playerBoard.PlaceShip(request) == ShipPlacement.NotEnoughSpace)
+            {
+                Console.WriteLine("{0}, Your ships don't have enough space! Please start over.", user.playerName);
+                placeShip(user);
+            }*/
+
+        }
 
         /*public int coordinateConverter(string location)
         {
