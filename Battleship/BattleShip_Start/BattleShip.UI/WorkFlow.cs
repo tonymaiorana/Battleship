@@ -17,7 +17,7 @@ namespace BattleShip.UI
             string nameEntry;
             do
             {
-                Console.Write("Player {0}, Please Enter Your Name: ",i);
+                Console.Write("Admiral {0}, Please Enter Your Name: ",i);
                 nameEntry = Console.ReadLine();
                 if (nameEntry == "")
                 {
@@ -69,27 +69,38 @@ namespace BattleShip.UI
             return true;
         }
 
-        public ShipDirection GetShipDirection()
+        public ShipDirection GetShipDirection(Player user)
         {
-            Console.WriteLine("What direction would you like the ship to be facing?");
+            Console.WriteLine("Admiral {0}, What direction would you like the ship to be facing?", user.playerName);
             string directionString = Console.ReadLine();
-            if (directionString == ShipDirection.Down.ToString())
+            switch (directionString)
+            {
+                case "down":
+                    return ShipDirection.Down;
+                case "up":
+                    return ShipDirection.Up;
+                case "left":
+                    return ShipDirection.Left;
+                default:
+                    return ShipDirection.Right;
+            }
+            /*if (directionString == ShipDirection.Down.ToString())
             {
                 return ShipDirection.Down;
             }
                 
-            return ShipDirection.Up;
+            return ShipDirection.Up;*/
         }
 
         public void placeShips(Player user)
         {
             foreach(ShipType s in Enum.GetValues(typeof(ShipType)))
             {
-                Console.WriteLine("{0}, pick where you want to place your {1}?", user.playerName, s);
+                Console.WriteLine("Admiral {0}, pick where you want to place your {1}?", user.playerName, s);
                 PlaceShipRequest request = new PlaceShipRequest
                 {
                     Coordinate = GetCoordinate(),
-                    Direction = GetShipDirection(),
+                    Direction = GetShipDirection(user),
                     ShipType = s
                 };
                 coordinateShipSpotChecker(request, user);

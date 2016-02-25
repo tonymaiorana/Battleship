@@ -23,10 +23,11 @@ namespace BattleShip.UI
             display.welcomeScreen();
             game.PopulatePlayer(p1, 1);
             game.PopulatePlayer(p2, 2);
-            //game.placeShips(p1);
+           // game.placeShips(p1);
             game.placeShips(p2);
-            display.displayBoard(p1.playerBoard);
+           // display.displayBoard(p1.playerBoard);
             game.playerTurn(p1, p2);
+            display.displayBoard(p1.playerBoard);
             Console.ReadLine();
 
         }
