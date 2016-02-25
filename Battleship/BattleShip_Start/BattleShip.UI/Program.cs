@@ -10,26 +10,28 @@ using BattleShip.BLL.Requests;
 
 namespace BattleShip.UI
 {
-   public class Program
+    public class Program
     {
         static void Main(string[] args)
         {
-            
+
             Player p1 = new Player();
             Player p2 = new Player();
             WorkFlow game = new WorkFlow();
             Display display = new Display();
-            
+
             display.welcomeScreen();
             game.PopulatePlayer(p1, 1);
             game.PopulatePlayer(p2, 2);
-           // game.placeShips(p1);
+            game.placeShips(p1);
             game.placeShips(p2);
-           // display.displayBoard(p1.playerBoard);
-            game.playerTurn(p1, p2);
-            display.displayBoard(p1.playerBoard);
-            Console.ReadLine();
-
+            display.displayShotBoard(p1.playerBoard);
+            while (true)
+            {
+                game.playerTurn(p1, p2);
+                display.displayShotBoard(p2.playerBoard);
+                Console.ReadLine();
+            }
         }
     }
 }
