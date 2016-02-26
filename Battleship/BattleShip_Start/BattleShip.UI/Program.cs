@@ -19,18 +19,31 @@ namespace BattleShip.UI
             Player p2 = new Player();
             WorkFlow game = new WorkFlow();
             Display display = new Display();
+            bool victory = false;
+            int playerTurn = 1;
 
             display.welcomeScreen();
             game.PopulatePlayer(p1, 1);
             game.PopulatePlayer(p2, 2);
             game.placeShips(p1);
+            Console.Clear();
             game.placeShips(p2);
-            display.displayShotBoard(p1.playerBoard);
-            while (true)
+            Console.Clear();
+
+            while (!victory)
             {
-                game.playerTurn(p1, p2);
-                display.displayShotBoard(p2.playerBoard);
-                Console.ReadLine();
+                if (playerTurn == 1)
+                {
+                    victory = game.playerTurn(p1, p2);
+                    display.displayShotBoard(p2.playerBoard);
+                    playerTurn++;
+                }
+                else if (playerTurn == 2)
+                {
+                    victory = game.playerTurn(p2, p1);
+                    display.displayShotBoard(p1.playerBoard);
+                    playerTurn--;
+                }
             }
         }
     }

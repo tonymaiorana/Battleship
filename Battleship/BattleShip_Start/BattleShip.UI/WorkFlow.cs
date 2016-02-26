@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -38,7 +39,7 @@ namespace BattleShip.UI
             while (!validInput)
             {
                 Console.Write("Please enter coordinates: ");
-                string playerInput = Console.ReadLine();
+                string playerInput = Console.ReadLine().ToUpper();
                 int xInt = convertX(playerInput);
                 string yString = playerInput.Substring(1);
                 int yInt;
@@ -72,17 +73,27 @@ namespace BattleShip.UI
         public ShipDirection GetShipDirection(Player user)
         {
             Console.WriteLine("Admiral {0}, What direction would you like the ship to be facing?", user.playerName);
-            string directionString = Console.ReadLine();
+            string directionString = Console.ReadLine().ToUpper();
+            ShipDirectionChecker(directionString, user);
             switch (directionString)
             {
-                case "down":
+                case "DOWN":
                     return ShipDirection.Down;
-                case "up":
+                case "UP":
                     return ShipDirection.Up;
-                case "left":
+                case "LEFT":
                     return ShipDirection.Left;
                 default:
                     return ShipDirection.Right;
+            }
+        }
+
+        public void ShipDirectionChecker(string directionString, Player user)
+        {
+            if(Enum.GetValues(typeof(ShipDirection)).ToString()!= directionString)
+            {
+                Console.WriteLine("Please enter a direction. (Up, Down, Left, Right)\n");
+                GetShipDirection(user);
             }
         }
 
@@ -140,22 +151,13 @@ namespace BattleShip.UI
             {
                 Console.WriteLine("Sunk");
             }
+            else if(result.ShotStatus == ShotStatus.Victory)
+            {
+                //Ask Victor why is static needed?
+                Display.VictoryMessage(shooter);
+                return true;
+            }
             return false;
         }
-
-        /*public int coordinateConverter(string location)
-        {
-            char xCoordinateChar = location[0];
-            int ascii = xCoordinateChar;
-            ascii -= 64;
-            return ascii;
-        }
-
-        public bool spotValidation(int xCord, int yCord)
-        {
-            return true;
-        }
-
-        public */
     }
 }
