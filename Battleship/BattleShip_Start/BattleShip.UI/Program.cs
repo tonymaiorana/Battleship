@@ -14,7 +14,7 @@ namespace BattleShip.UI
     {
         static void Main(string[] args)
         {
-
+            Console.SetWindowSize(Console.LargestWindowWidth, Console.LargestWindowHeight);
             Player p1 = new Player();
             Player p2 = new Player();
             WorkFlow game = new WorkFlow();
@@ -35,14 +35,20 @@ namespace BattleShip.UI
                 if (playerTurn == 1)
                 {
                     victory = game.playerTurn(p1, p2);
-                    display.displayShotBoard(p2.playerBoard, p1);
+                    Display.displayShotBoard(p2.playerBoard, p1);
                     playerTurn++;
+                    Console.WriteLine("Press Enter to Continue");
+                    Console.ReadLine();
+                    Console.Clear();
                 }
                 else if (playerTurn == 2)
                 {
                     victory = game.playerTurn(p2, p1);
-                    display.displayShotBoard(p1.playerBoard, p2);
+                    Display.displayShotBoard(p1.playerBoard, p2);
                     playerTurn--;
+                    Console.WriteLine("Press Enter to Continue");
+                    Console.ReadLine();
+                    Console.Clear();
                 }
             }
         }

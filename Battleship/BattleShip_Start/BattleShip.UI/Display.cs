@@ -14,15 +14,12 @@ namespace BattleShip.UI
     {
         public void welcomeScreen()
         {
-            Console.WriteLine("Welcome to BattleShips!!");
-            Console.ReadLine();
-            Console.Clear();
             AsciiArt.WelcomeScreen();
             Console.ReadLine();
             Console.Clear();
         }
 
-        public void displayShotBoard(Board playerBoard, Player user)
+        public static void displayShotBoard(Board playerBoard, Player user)
         {
             Console.WriteLine("\n            ATTACK BOARD       \n");
             Console.WriteLine("     A  B  C  D  E  F  G  H  I  J\n");
@@ -67,9 +64,7 @@ namespace BattleShip.UI
                 Console.WriteLine();
                 Console.ForegroundColor = ConsoleColor.White;
             }
-            Console.Write("Please Press Enter to Continue");
-            Console.ReadLine();
-            Console.Clear();
+            Console.WriteLine();
         }
 
         public static void ShipBoard(Board playerBoard, int index)
@@ -100,32 +95,7 @@ namespace BattleShip.UI
                     {
                         Console.ForegroundColor = ConsoleColor.White;
                         Console.Write(" * ");
-                    }
-                    /*if (testCoordinate.Equals(shipCoordinate)) //Why not ==? refrence comparison?
-                    {
-                        if (s == ShipType.Destroyer)
-                        {
-                            Console.Write(" D ");
-                        }
-                        else if (s == ShipType.Submarine)
-                        {
-                            Console.Write(" S ");
-                        }
-                        else if (s == ShipType.Cruiser)
-                        {
-                            Console.Write(" c ");
-                        }
-                        else if (s == ShipType.Carrier)
-                        {
-                            Console.Write(" C ");
-                        }
-                        else
-                        {
-                            Console.Write(" B ");
-                        }
-                    }*/
-                    
-
+                    }                    
                 }
                 Console.WriteLine();
             }

@@ -148,19 +148,23 @@ namespace BattleShip.UI
         public bool playerTurn(Player shooter, Player defender)
         {
             Console.WriteLine("{0}, get ready to shoot!", shooter.playerName);
+            Display.displayShotBoard(defender.playerBoard, defender);
             Coordinate c = GetCoordinate();
             var result = defender.playerBoard.FireShot(c);
             if (result.ShotStatus == ShotStatus.Duplicate || result.ShotStatus == ShotStatus.Invalid)
             {
                 Console.WriteLine("Coordinates aren't on board or you already fired here!");
+                playerTurn(shooter, defender);
             }
             else if (result.ShotStatus == ShotStatus.Miss)
             {
-                Console.WriteLine("You missed");
+                Console.Clear();
+                AsciiArt.MissScreen();
             }
             else if (result.ShotStatus == ShotStatus.Hit)
             {
-                Console.WriteLine("You hit");
+                Console.Clear();
+                AsciiArt.HitScreen();
             }
             else if (result.ShotStatus == ShotStatus.HitAndSunk)
             {
