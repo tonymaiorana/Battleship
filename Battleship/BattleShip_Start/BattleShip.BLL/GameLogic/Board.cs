@@ -11,7 +11,7 @@ namespace BattleShip.BLL.GameLogic
     {//Dictionary is holding the coordinates of the previous shots (ShotsHistory)
         public Dictionary<Coordinate, ShotHistory> ShotHistory;
 
-        private Ship[] _ships;
+        public Ship[] _ships;
         private int _currentShipIndex;
 
         public Board()

@@ -90,17 +90,22 @@ namespace BattleShip.UI
         }
         public void placeShips(Player user)
         {
+            int index = 0;
             foreach(ShipType s in Enum.GetValues(typeof(ShipType)))
             {
                 //display.shipBoard();
                 Console.WriteLine("Admiral {0}, pick where you want to place your {1}?", user.playerName, s);
+                Coordinate shipCoordinate = GetCoordinate();
+                ShipDirection shipDirection = GetShipDirection(user);
                 PlaceShipRequest request = new PlaceShipRequest
                 {
-                    Coordinate = GetCoordinate(),
-                    Direction = GetShipDirection(user),
+                    Coordinate = shipCoordinate,
+                    Direction = shipDirection,
                     ShipType = s
                 };
                 coordinateShipSpotChecker(request, user);
+                //Display.ShipBoard(user.playerBoard, index);
+                index++;
             }
         }
 
