@@ -4,6 +4,7 @@ using System.Diagnostics;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using BattleShip.BLL.GameLogic;
 using BattleShip.BLL.Requests;
 using BattleShip.BLL.Responses;
 using BattleShip.BLL.Ships;
@@ -40,13 +41,18 @@ namespace BattleShip.UI
             {
                 Console.Write("Please enter coordinates: ");
                 string playerInput = Console.ReadLine().ToUpper();
-                int xInt = convertX(playerInput);
-                string yString = playerInput.Substring(1);
-                int yInt;
-                bool yParse = int.TryParse(yString, out yInt);
-                if (coordinateCheck(xInt, yParse))
+                if (playerInput != "")
                 {
-                    return new Coordinate(xInt, yInt);
+                    int xInt = convertX(playerInput);
+                    string yString = playerInput.Substring(1);
+                    int yInt;
+                    bool yParse = int.TryParse(yString, out yInt);
+
+                    if (coordinateCheck(xInt, yInt, yParse))
+                    {
+                        return new Coordinate(xInt, yInt);
+                    }     
+
                 }
                 Console.WriteLine("Please enter valid coordinates! (eg. E9)");
             }
@@ -61,9 +67,9 @@ namespace BattleShip.UI
             return ascii;
         }
 
-        public bool coordinateCheck(int xInt, bool yParse)//Work With get coord
+        public bool coordinateCheck(int xInt, int yInt, bool yParse)//Work With get coord
         {
-            if ((xInt < 0 || xInt > 10) || !yParse) //y might need to be changed
+            if (xInt <= 0 || xInt > 10 || !yParse || yInt > 10 || yInt <= 0) //y might need to be changed
             {
                 return false;
             }
@@ -91,6 +97,8 @@ namespace BattleShip.UI
         public void placeShips(Player user)
         {
             int index = 0;
+            user.playerBoard = new Board();
+
             foreach(ShipType s in Enum.GetValues(typeof(ShipType)))
             {
                 //display.shipBoard();
@@ -109,13 +117,14 @@ namespace BattleShip.UI
             }
         }
 
-        public void coordinateShipSpotChecker(PlaceShipRequest request, Player user)
+       public void coordinateShipSpotChecker(PlaceShipRequest request, Player user)
         {
             if (user.playerBoard.PlaceShip(request) == ShipPlacement.Overlap)
             {
                 Console.WriteLine("{0}, You've overlapped your ships, Please start over.", user.playerName);
                 placeShips(user);
-            }
+
+            } 
 
            /****** MIGHT NOT NEED THIS***** COORDINATE CHECK 
            else if (user.playerBoard.PlaceShip(request) == ShipPlacement.NotEnoughSpace)
