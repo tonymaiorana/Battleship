@@ -74,7 +74,7 @@ namespace BattleShip.UI
         {
             Console.WriteLine("Admiral {0}, What direction would you like the ship to be facing?", user.playerName);
             string directionString = Console.ReadLine().ToUpper();
-            ShipDirectionChecker(directionString, user);
+            //ShipDirectionChecker(directionString, user);
             switch (directionString)
             {
                 case "DOWN":
@@ -88,28 +88,33 @@ namespace BattleShip.UI
             }
         }
 
-        public void ShipDirectionChecker(string directionString, Player user)
+        /*public void ShipDirectionChecker(string directionString, Player user)
         {
-            if(Enum.GetValues(typeof(ShipDirection)).ToString()!= directionString)
+            if(Enum.GetValues(typeof(ShipDirection)).ToString().ToUpper()!= directionString)
             {
                 Console.WriteLine("Please enter a direction. (Up, Down, Left, Right)\n");
                 GetShipDirection(user);
             }
-        }
+        }*/
 
         public void placeShips(Player user)
         {
+            int index = 0;
             foreach(ShipType s in Enum.GetValues(typeof(ShipType)))
             {
                 //display.shipBoard();
                 Console.WriteLine("Admiral {0}, pick where you want to place your {1}?", user.playerName, s);
+                Coordinate shipCoordinate = GetCoordinate();
+                ShipDirection shipDirection = GetShipDirection(user);
                 PlaceShipRequest request = new PlaceShipRequest
                 {
-                    Coordinate = GetCoordinate(),
-                    Direction = GetShipDirection(user),
+                    Coordinate = shipCoordinate,
+                    Direction = shipDirection,
                     ShipType = s
                 };
                 coordinateShipSpotChecker(request, user);
+                //Display.ShipBoard(user.playerBoard, index);
+                index++;
             }
         }
 

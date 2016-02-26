@@ -6,6 +6,7 @@ using System.Threading.Tasks;
 using BattleShip.BLL.GameLogic;
 using BattleShip.BLL.Requests;
 using BattleShip.BLL.Responses;
+using BattleShip.BLL.Ships;
 
 namespace BattleShip.UI
 {
@@ -49,8 +50,6 @@ namespace BattleShip.UI
 
         public void displayShotBoard(Board playerBoard)
         {
-            //int [,] board = new int[10,10];
-
             for (int col = 1; col <= 10; col++)
             {
                 if (col < 10)
@@ -87,6 +86,69 @@ namespace BattleShip.UI
                         Console.ForegroundColor = ConsoleColor.White;
                         Console.Write(" * ");
                     }
+
+                }
+                Console.WriteLine();
+            }
+
+            Console.Write("Please Press Enter to Continue");
+            Console.ReadLine();
+            Console.Clear();
+        }
+
+        public static void ShipBoard(Board playerBoard, int index)
+        {
+            for (int col = 1; col <= 10; col++)
+            {
+                if (col < 10)
+                {
+                    Console.Write(" {0}  ", col);
+                }
+                else
+                {
+                    Console.Write(" {0} ", col);
+                }
+
+                for (int row = 1; row <= 10; row++)
+                {
+                    Coordinate testCoordinate = new Coordinate(row,col);
+                    Coordinate shipCoordinate = playerBoard._ships[index].BoardPositions[0];
+                    if (testCoordinate.Equals(shipCoordinate))
+                    {
+                        if (playerBoard._ships[index].ShipType == ShipType.Destroyer)
+                        {
+                            Console.Write(" D ");
+                        }
+                    }
+                    else
+                    {
+                        Console.ForegroundColor = ConsoleColor.White;
+                        Console.Write(" * ");
+                    }
+                    /*if (testCoordinate.Equals(shipCoordinate)) //Why not ==? refrence comparison?
+                    {
+                        if (s == ShipType.Destroyer)
+                        {
+                            Console.Write(" D ");
+                        }
+                        else if (s == ShipType.Submarine)
+                        {
+                            Console.Write(" S ");
+                        }
+                        else if (s == ShipType.Cruiser)
+                        {
+                            Console.Write(" c ");
+                        }
+                        else if (s == ShipType.Carrier)
+                        {
+                            Console.Write(" C ");
+                        }
+                        else
+                        {
+                            Console.Write(" B ");
+                        }
+                    }*/
+                    
 
                 }
                 Console.WriteLine();
