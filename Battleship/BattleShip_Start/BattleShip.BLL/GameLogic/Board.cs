@@ -101,6 +101,7 @@ namespace BattleShip.BLL.GameLogic
         public ShipPlacement PlaceShip(PlaceShipRequest request)
         {
             if (_currentShipIndex > 4)
+
                 throw new Exception("You can not add another ship, 5 is the limit!");
 
             if (!IsValidCoordinate(request.Coordinate))

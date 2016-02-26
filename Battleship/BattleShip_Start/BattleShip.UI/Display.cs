@@ -50,7 +50,7 @@ namespace BattleShip.UI
         public void displayShotBoard(Board playerBoard)
         {
             //int [,] board = new int[10,10];
-
+            Console.WriteLine("     A  B  C  D  E  F  G  H  I  J\n");
             for (int col = 1; col <= 10; col++)
             {
                 if (col < 10)
