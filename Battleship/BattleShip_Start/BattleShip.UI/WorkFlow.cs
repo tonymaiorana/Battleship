@@ -19,7 +19,7 @@ namespace BattleShip.UI
             string nameEntry;
             do
             {
-                Console.Write("Admiral {0}, Please Enter Your Name: ",i);
+                Console.Write("Admiral {0}, Please Enter Your Name: ", i);
                 nameEntry = Console.ReadLine();
                 if (nameEntry == "")
                 {
@@ -30,7 +30,7 @@ namespace BattleShip.UI
                     validInput = true;
                 }
             } while (!validInput);
-            p.playerName=nameEntry;
+            p.playerName = nameEntry;
             return p;
         }
 
@@ -51,15 +51,15 @@ namespace BattleShip.UI
                     if (coordinateCheck(xInt, yInt, yParse))
                     {
                         return new Coordinate(xInt, yInt);
-                    }     
+                    }
 
                 }
                 Console.WriteLine("Please enter valid coordinates! (eg. E9)");
             }
-            return new Coordinate(11,11);
+            return new Coordinate(11, 11);
         }
 
-        public int convertX(string playerInput)//Work with get coord
+        public int convertX(string playerInput) //Work with get coord
         {
             char xCoordinateChar = playerInput[0];
             int ascii = xCoordinateChar;
@@ -67,7 +67,7 @@ namespace BattleShip.UI
             return ascii;
         }
 
-        public bool coordinateCheck(int xInt, int yInt, bool yParse)//Work With get coord
+        public bool coordinateCheck(int xInt, int yInt, bool yParse) //Work With get coord
         {
             if (xInt <= 0 || xInt > 10 || !yParse || yInt > 10 || yInt <= 0) //y might need to be changed
             {
@@ -78,7 +78,9 @@ namespace BattleShip.UI
 
         public ShipDirection GetShipDirection(Player user)
         {
-            Console.WriteLine("Admiral {0}, What direction would you like the ship to be facing? use (up, down, left or right)", user.playerName);
+            Console.WriteLine(
+                "Admiral {0}, What direction would you like the ship to be facing? use (up, down, left or right)",
+                user.playerName);
             string directionString = Console.ReadLine().ToUpper();
             switch (directionString)
             {
@@ -91,55 +93,63 @@ namespace BattleShip.UI
                 case "RIGHT":
                     return ShipDirection.Right;
                 default:
-                   return GetShipDirection(user);
+                    return GetShipDirection(user);
             }
         }
+
         public void placeShips(Player user)
         {
+            ShipType[] shipTypeArray =
+            {
+                ShipType.Destroyer, ShipType.Submarine, ShipType.Cruiser, ShipType.Battleship,
+                ShipType.Carrier,
+            };
             int index = 0;
-            user.playerBoard = new Board();
+            user.playerBoard= new Board();
 
-            foreach(ShipType s in Enum.GetValues(typeof(ShipType)))
+            /*foreach (ShipType s in Enum.GetValues(typeof (ShipType)))
+            {*/
+            for (int i = 0; i<5; i++)
             {
                 //display.shipBoard();
-                Console.WriteLine("Admiral {0}, pick where you want to place your {1}?", user.playerName, s);
+                Console.WriteLine("Admiral {0}, pick where you want to place your {1}?", user.playerName, shipTypeArray[i]);
                 Coordinate shipCoordinate = GetCoordinate();
                 ShipDirection shipDirection = GetShipDirection(user);
                 PlaceShipRequest request = new PlaceShipRequest
                 {
                     Coordinate = shipCoordinate,
                     Direction = shipDirection,
-                    ShipType = s
+                    ShipType = shipTypeArray[i]
                 };
-                coordinateShipSpotChecker(request, user);
+                i= coordinateShipSpotChecker(request, user, i);
                 //Display.ShipBoard(user.playerBoard, index);
                 index++;
             }
+            //}
         }
 
-       public void coordinateShipSpotChecker(PlaceShipRequest request, Player user)
+        public int coordinateShipSpotChecker(PlaceShipRequest request, Player user, int i)
         {
-            if (user.playerBoard.PlaceShip(request) == ShipPlacement.Overlap)
+            Board tempBoard=user.playerBoard;
+            ShipPlacement s = tempBoard.PlaceShip(request);
+            if (s == ShipPlacement.Overlap)
             {
                 Console.WriteLine("{0}, You've overlapped your ships, Please start over.", user.playerName);
-                placeShips(user);
-
-            } 
-
-           /****** MIGHT NOT NEED THIS***** COORDINATE CHECK 
-           else if (user.playerBoard.PlaceShip(request) == ShipPlacement.NotEnoughSpace)
+                return i - 1;
+            }
+            if (s == ShipPlacement.NotEnoughSpace)
             {
                 Console.WriteLine("{0}, Your ships don't have enough space! Please start over.", user.playerName);
-                placeShip(user);
-            }*/
-
+                return i - 1;
+            }
+            return i;
         }
 
         public bool playerTurn(Player shooter, Player defender)
         {
             Console.WriteLine("{0}, get ready to shoot!", shooter.playerName);
             Coordinate c = GetCoordinate();
-            var result=defender.playerBoard.FireShot(c);
+            var result = defender.playerBoard.FireShot(c);
             if (result.ShotStatus == ShotStatus.Duplicate || result.ShotStatus == ShotStatus.Invalid)
             {
                 Console.WriteLine("Coordinates aren't on board or you already fired here!");
@@ -156,7 +166,7 @@ namespace BattleShip.UI
             {
                 Console.WriteLine("Sunk");
             }
-            else if(result.ShotStatus == ShotStatus.Victory)
+            else if (result.ShotStatus == ShotStatus.Victory)
             {
                 //Ask Victor why is static needed?
                 Display.VictoryMessage(shooter);
