@@ -42,7 +42,6 @@ namespace BattleShip.UI
                         ShotHistory sh = playerBoard.ShotHistory[new Coordinate(row, col)];
                         if (sh == ShotHistory.Hit)
                         {
-                            Console.Beep();
                             Console.BackgroundColor = ConsoleColor.DarkRed;
                             Console.Write("| H |");
                         }

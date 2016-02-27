@@ -15,7 +15,7 @@ namespace BattleShip.UI
         static void Main(string[] args)
         {
             Console.SetWindowSize(Console.LargestWindowWidth, Console.LargestWindowHeight);
-            bool playAgain = true;
+            bool playAgain;
             do
             {
                 Player p1 = new Player();
@@ -24,6 +24,7 @@ namespace BattleShip.UI
                 Display display = new Display();
                 bool victory = false;
                 int playerTurn = 1;
+                playAgain = true;
 
                 display.welcomeScreen();
                 game.PopulatePlayer(p1, 1);
@@ -57,7 +58,13 @@ namespace BattleShip.UI
                     }
                 }
 
-            } while (playAgain);
+                Console.Write("Do you want to play again? (Y/N) ");
+                string yesNo = Console.ReadLine().ToUpper();
+                if (yesNo == "N")
+                {
+                    playAgain = false;
+                }
+            } while (playAgain); // finish play again loop
 
         }
     }

@@ -134,12 +134,14 @@ namespace BattleShip.UI
             ShipPlacement s = tempBoard.PlaceShip(request);
             if (s == ShipPlacement.Overlap)
             {
-                Console.WriteLine("{0}, You've overlapped your ships, Please start over.", user.playerName);
+                Console.WriteLine("Admiral {0}, You've overlapped your ships, Please try again", user.playerName);
+                Console.ReadLine();
                 return i - 1;
             }
             if (s == ShipPlacement.NotEnoughSpace)
             {
-                Console.WriteLine("{0}, Your ships don't have enough space! Please start over.", user.playerName);
+                Console.WriteLine("Admiral {0}, Your ships don't have enough space! Please try again.", user.playerName);
+                Console.ReadLine();
                 return i - 1;
             }
             return i;
@@ -168,7 +170,8 @@ namespace BattleShip.UI
             }
             else if (result.ShotStatus == ShotStatus.HitAndSunk)
             {
-                Console.WriteLine("Sunk");
+                Console.Clear();
+                AsciiArt.SunkScreen();
             }
             else if (result.ShotStatus == ShotStatus.Victory)
             {
