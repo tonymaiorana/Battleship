@@ -107,11 +107,12 @@ namespace BattleShip.UI
             int index = 0;
             user.playerBoard= new Board();
 
-            /*foreach (ShipType s in Enum.GetValues(typeof (ShipType)))
-            {*/
             for (int i = 0; i<5; i++)
             {
-                //display.shipBoard();
+                Display.ShipBoard(user.playerBoard,i);
+                Console.WriteLine();
+
+
                 Console.WriteLine("Admiral {0}, pick where you want to place your {1}?", user.playerName, shipTypeArray[i]);
                 Coordinate shipCoordinate = GetCoordinate();
                 ShipDirection shipDirection = GetShipDirection(user);
@@ -122,10 +123,9 @@ namespace BattleShip.UI
                     ShipType = shipTypeArray[i]
                 };
                 i= coordinateShipSpotChecker(request, user, i);
-                //Display.ShipBoard(user.playerBoard, index);
                 index++;
+                Console.Clear();
             }
-            //}
         }
 
         public int coordinateShipSpotChecker(PlaceShipRequest request, Player user, int i)

@@ -21,17 +21,18 @@ namespace BattleShip.UI
 
         public static void displayShotBoard(Board playerBoard, Player user)
         {
-            Console.WriteLine("\n            ATTACK BOARD       \n");
-            Console.WriteLine("     A  B  C  D  E  F  G  H  I  J\n");
+            Console.WriteLine("\n                  ATTACK BOARD                      \n");
+            Console.WriteLine("        A    B    C    D    E    F    G    H    I    J\n");
+
             for (int col = 1; col <= 10; col++)
             {
                 if (col < 10)
                 {
-                    Console.Write(" {0}  ", col);
+                    Console.Write("| {0}  |", col);
                 }
                 else
                 {
-                    Console.Write(" {0} ", col);
+                    Console.Write("| {0} |", col);
                 }
 
                 for (int row = 1; row <= 10; row ++)
@@ -41,34 +42,48 @@ namespace BattleShip.UI
                         ShotHistory sh = playerBoard.ShotHistory[new Coordinate(row, col)];
                         if (sh == ShotHistory.Hit)
                         {
-                            Console.ForegroundColor = ConsoleColor.Red;
-                            Console.Write(" H ");
+                            Console.Beep();
+                            Console.BackgroundColor = ConsoleColor.DarkRed;
+                            Console.Write("| H |");
                         }
                         else if (sh == ShotHistory.Miss)
                         {
-                            Console.ForegroundColor = ConsoleColor.Yellow;
-                            Console.Write(" M ");
+                            Console.BackgroundColor = ConsoleColor.DarkYellow;
+                            Console.Write("| M |");
                         }
                         else
                         {
-                            Console.Write(" ^ ");
+                            Console.Write("| ^ |");
                         }
                     }
                     else
                     {   
-                        Console.ForegroundColor = ConsoleColor.White;
-                        Console.Write(" * ");
+                        Console.BackgroundColor = ConsoleColor.Black;
+                        Console.Write("| * |");
                     }
 
                 }
                 Console.WriteLine();
-                Console.ForegroundColor = ConsoleColor.White;
+                Console.BackgroundColor = ConsoleColor.Black;
             }
             Console.WriteLine();
         }
 
-        public static void ShipBoard(Board playerBoard, int index)
+        public static void ShipBoard(Board playerBoard, int shipsPlaced)
         {
+            Dictionary<Coordinate,ShipType> shipDictionary = new Dictionary<Coordinate,ShipType>();
+
+            for (int i = 0; i < shipsPlaced; i++)
+            {
+                foreach (Coordinate c in playerBoard._ships[i].BoardPositions)
+                {
+                    shipDictionary.Add(c, playerBoard._ships[i].ShipType);
+                }
+            }
+
+
+            Console.WriteLine("\n                    SHIP PLACEMENT                      \n");
+            Console.WriteLine("      A    B    C    D    E    F    G    H    I    J\n");
             for (int col = 1; col <= 10; col++)
             {
                 if (col < 10)
@@ -82,27 +97,49 @@ namespace BattleShip.UI
 
                 for (int row = 1; row <= 10; row++)
                 {
-                    Coordinate testCoordinate = new Coordinate(row,col);
-                    Coordinate shipCoordinate = playerBoard._ships[index].BoardPositions[0];
-                    if (testCoordinate.Equals(shipCoordinate))
+                    if (shipDictionary.ContainsKey(new Coordinate(row, col)))
                     {
-                        if (playerBoard._ships[index].ShipType == ShipType.Destroyer)
+                        ShipType ship = shipDictionary[new Coordinate(row,col)];
+                        if (ship == ShipType.Destroyer)
                         {
-                            Console.Write(" D ");
+                            Console.BackgroundColor = ConsoleColor.DarkGreen;
+                            Console.Write("| D |");
+                        }
+                        else if (ship == ShipType.Submarine)
+                        {
+                            Console.BackgroundColor = ConsoleColor.DarkGreen;
+                            Console.Write("| S |");
+                        }
+                        else if (ship == ShipType.Cruiser)
+                        {
+                            Console.BackgroundColor = ConsoleColor.DarkGreen;
+                            Console.Write("| R |");
+                        }
+                        else if (ship == ShipType.Battleship)
+                        {
+                            Console.BackgroundColor = ConsoleColor.DarkGreen;
+                            Console.Write("| B |");
+                        }
+                        else if (ship == ShipType.Carrier)
+                        {
+                            Console.BackgroundColor = ConsoleColor.DarkGreen;
+                            Console.Write("| C |");
+                        }
+                        else
+                        {
+                            Console.Write("| ^ |");
                         }
                     }
                     else
                     {
-                        Console.ForegroundColor = ConsoleColor.White;
-                        Console.Write(" * ");
-                    }                    
+                        Console.BackgroundColor = ConsoleColor.Black;
+                        Console.Write("| * |");
+                    }
+                    Console.BackgroundColor = ConsoleColor.Black;
                 }
                 Console.WriteLine();
             }
 
-            Console.Write("Please Press Enter to Continue");
-            Console.ReadLine();
-            Console.Clear();
         }
 
         public static void VictoryMessage(Player user)
