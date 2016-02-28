@@ -13,7 +13,7 @@ namespace BattleShip.UI
         {
             SoundPlayer introMusic =
                 new SoundPlayer(
-                    "C:\\_repos\\maiorana-palazzo-battleship\\Battleship\\BattleShip_Start\\IntroMusic.wav");
+                    "C:\\Users\\Apprentice\\Desktop\\_repos\\maiorana-palazzo-battleship\\Battleship\\BattleShip_Start\\IntroMusic.wav");
             introMusic.Play();
 
             for (int i = 0; i < 3; i++)
