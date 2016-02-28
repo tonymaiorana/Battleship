@@ -143,7 +143,8 @@ namespace BattleShip.UI
 
         public static void VictoryMessage(Player user)
         {
-            Console.Write("YOU WIN, Admiral {0}", user.playerName);
+            
+            Console.Write("YOU WIN, Admiral {0}!", user.playerName);
             Console.ReadLine();
             Console.Clear();
             AsciiArt.VictoryScreen();

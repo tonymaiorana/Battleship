@@ -13,7 +13,7 @@ namespace BattleShip.UI
         {
             SoundPlayer introMusic =
                 new SoundPlayer(
-                    "C:\\Users\\Apprentice\\Desktop\\_repos\\maiorana-palazzo-battleship\\Battleship\\BattleShip_Start\\IntroMusic.wav");
+                    "C:\\_repos\\maiorana-palazzo-battleship\\Battleship\\BattleShip_Start\\IntroMusic.wav");
             introMusic.Play();
 
             for (int i = 0; i < 3; i++)
@@ -255,15 +255,34 @@ namespace BattleShip.UI
 
         public static void SunkScreen()
         {
-            for (int i = 0; i < 3; i++)
+            String pushDown = "\n\n\n\n";
+            String [] sunkStrings = new string[]
             {
-                Console.ForegroundColor = ConsoleColor.Blue;
-                Console.WriteLine(
-                    @"");
-                System.Threading.Thread.Sleep(250);
+                "..######..##.....##.####.########......######..##.....##.##....##.##....##",
+                ".##....##.##.....##..##..##.....##....##....##.##.....##.###...##.##...##.",
+                ".##.......##.....##..##..##.....##....##.......##.....##.####..##.##..##..",
+                "..######..#########..##..########......######..##.....##.##.##.##.#####...",
+                ".......##.##.....##..##..##.................##.##.....##.##..####.##..##..",
+                ".##....##.##.....##..##..##...........##....##.##.....##.##...###.##...##.",
+                "..######..##.....##.####.##............######...#######..##....##.##....##"
+                                                                                              
+            };
+            for (int i = 1; i < sunkStrings.Length; i++)
+            {
+                Console.WriteLine(pushDown);
+                for (int j = 0; j <= sunkStrings.Length - i; j++)
+                {
+                    Console.ForegroundColor = ConsoleColor.DarkCyan;
+                    Console.WriteLine(sunkStrings[j]);
+                }
+
+
+                System.Threading.Thread.Sleep(200);
+                pushDown += "\n";
                 Console.Clear();
-                System.Threading.Thread.Sleep(250);
+
             }
+            System.Threading.Thread.Sleep(1000);
             Console.ForegroundColor = ConsoleColor.White;
         }
 

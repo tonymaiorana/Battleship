@@ -18,6 +18,7 @@ namespace BattleShip.UI
             bool playAgain;
             do
             {
+                Console.Clear();
                 Player p1 = new Player();
                 Player p2 = new Player();
                 WorkFlow game = new WorkFlow();
@@ -41,6 +42,7 @@ namespace BattleShip.UI
                     if (playerTurn == 1)
                     {
                         victory = game.playerTurn(p1, p2);
+                        Console.WriteLine();
                         Display.displayShotBoard(p2.playerBoard, p1);
                         playerTurn++;
                         Console.WriteLine("Press Enter to Continue");
@@ -50,6 +52,7 @@ namespace BattleShip.UI
                     else if (playerTurn == 2)
                     {
                         victory = game.playerTurn(p2, p1);
+                        Console.WriteLine();
                         Display.displayShotBoard(p1.playerBoard, p2);
                         playerTurn--;
                         Console.WriteLine("Press Enter to Continue");
@@ -62,7 +65,14 @@ namespace BattleShip.UI
                 string yesNo = Console.ReadLine().ToUpper();
                 if (yesNo == "N")
                 {
+                    Console.Clear();
                     playAgain = false;
+                }
+                else if (yesNo != "Y")
+                {
+                    Console.WriteLine("Please Enter y or n!");
+                    System.Threading.Thread.Sleep(500);
+                    Console.Clear();
                 }
             } while (playAgain); // finish play again loop
 

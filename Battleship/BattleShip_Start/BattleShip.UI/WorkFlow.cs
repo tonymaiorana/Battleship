@@ -24,6 +24,8 @@ namespace BattleShip.UI
                 if (nameEntry == "")
                 {
                     Console.WriteLine("Please enter your name to start!");
+                    System.Threading.Thread.Sleep(500);
+                    Console.Clear();
                 }
                 else
                 {
@@ -156,6 +158,8 @@ namespace BattleShip.UI
             if (result.ShotStatus == ShotStatus.Duplicate || result.ShotStatus == ShotStatus.Invalid)
             {
                 Console.WriteLine("Coordinates aren't on board or you already fired here!");
+                System.Threading.Thread.Sleep(700);
+                Console.Clear();
                 playerTurn(shooter, defender);
             }
             else if (result.ShotStatus == ShotStatus.Miss)
