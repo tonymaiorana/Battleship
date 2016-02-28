@@ -14,7 +14,7 @@ namespace BattleShip.UI
             SoundPlayer introMusic =
                 new SoundPlayer(
                     "C:\\_repos\\maiorana-palazzo-battleship\\Battleship\\BattleShip_Start\\IntroMusic.wav");
-            introMusic.Play();
+            introMusic.PlayLooping();
 
             for (int i = 0; i < 3; i++)
             {
@@ -90,8 +90,9 @@ namespace BattleShip.UI
 
         public static void VictoryScreen()
         {
-            Console.WriteLine(
-                @"                                                   ```                                     ```                                                        
+            Console.ForegroundColor = ConsoleColor.Green;
+            String s = @"
+                                                                   ```                                     ```                                                        
       @@@@@@@:   #@@@@@@@     @@@@@@@`         `@@@@@@@@#       @@@@@@@@@@@@@@@'        #@@@@@@@@`         +@@@@@@@@@@'        @@@@@@@'  @@@@@@@#     
       @@    #@   @;    @;     @`    @`        #@@      .@@.     @,            @'      `@@,      #@#        +@       `;@@'      ;@    '@  @`    @      
       ,@    ,@   @     @`     @     @`       @@`         '@.    @,            @'     .@'          @@       +@          .@@      @     @ .@    ;@      
@@ -117,8 +118,15 @@ namespace BattleShip.UI
            @+     @#          @     @`       @@           @#        @:    @:         #@           @@       +@    '@ `@#    @`       @'    @;          
            '@     @.          @     @`        @@`       '@#         @:    @:          #@'       `@@        +@    '@   @@'  @`       @'    @;          
            `@@@@@@@           @@@@@@@`         #@@@++#@@@,          @@@@@@@:           ,@@@#++@@@#         +@@@@@@@    ;@@@@`       @@@@@@@;          
-            ```````           ```````            ,#@@@+`            ````````             `+@@@#:           ````````       ``                          ");
-
+            ```````           ```````            ,#@@@+`            ````````             `+@@@#:           ````````       ``                          ";
+            while (s.Length > 30)
+            {
+                Console.WriteLine(s);
+                s = s.Remove(s.Length - 31, 30);
+                System.Threading.Thread.Sleep(100);
+                Console.Clear();
+            }
+            Console.ForegroundColor = ConsoleColor.White;
         }
 
         public static void MissScreen()
