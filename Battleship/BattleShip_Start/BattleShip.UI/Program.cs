@@ -14,7 +14,7 @@ namespace BattleShip.UI
     {
         static void Main(string[] args)
         {
-            Console.SetWindowSize(Console.LargestWindowWidth, Console.LargestWindowHeight);
+            Console.SetWindowSize(175, 56);
             bool playAgain;
             do
             {
@@ -61,19 +61,24 @@ namespace BattleShip.UI
                     }
                 }
 
-                Console.Write("Do you want to play again? (Y/N) ");
-                string yesNo = Console.ReadLine().ToUpper();
-                if (yesNo == "N")
+                string yesNo;
+                do
                 {
-                    Console.Clear();
-                    playAgain = false;
-                }
-                else if (yesNo != "Y")
-                {
-                    Console.WriteLine("Please Enter y or n!");
-                    System.Threading.Thread.Sleep(500);
-                    Console.Clear();
-                }
+                    Console.Write("Do you want to play again? (Y/N) ");
+                    yesNo = Console.ReadLine().ToUpper();
+                    if (yesNo == "N")
+                    {
+                        Console.Clear();
+                        playAgain = false;
+                    }
+                    else if (yesNo != "Y")
+                    {
+                        Console.WriteLine("Please Enter y or n!");
+                        System.Threading.Thread.Sleep(500);
+                        Console.Clear();
+                    }
+                } while (yesNo != "Y" || yesNo != "N");
+
             } while (playAgain); // finish play again loop
 
         }
