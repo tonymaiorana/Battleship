@@ -293,6 +293,5 @@ namespace BattleShip.UI
             System.Threading.Thread.Sleep(1000);
             Console.ForegroundColor = ConsoleColor.White;
         }
-
     }
 }
