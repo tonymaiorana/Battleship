@@ -61,23 +61,13 @@ namespace BattleShip.UI
                     }
                 }
 
-                string yesNo;
-                do
+                Console.Write("Do you want to play again? (Y/N) ");
+                string yesNo = Console.ReadLine().ToUpper();
+                if (yesNo == "N")
                 {
-                    Console.Write("Do you want to play again? (Y/N) ");
-                    yesNo = Console.ReadLine().ToUpper();
-                    if (yesNo == "N")
-                    {
-                        Console.Clear();
-                        playAgain = false;
-                    }
-                    else if (yesNo != "Y")
-                    {
-                        Console.WriteLine("Please Enter y or n!");
-                        System.Threading.Thread.Sleep(500);
-                        Console.Clear();
-                    }
-                } while (yesNo != "Y" || yesNo != "N");
+                    Console.Clear();
+                    playAgain = false;
+                }
 
             } while (playAgain); // finish play again loop
 
